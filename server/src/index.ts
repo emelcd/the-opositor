@@ -55,6 +55,6 @@ app.get('/', jwtMiddleware, (req: Request, res: Response) => {
   res.json({ message: 'Hello World' })
 })
 
-app.listen(3000, () => {
+app.listen(4000, () => {
   console.log('Server is running on port http://localhost:3000')
 })

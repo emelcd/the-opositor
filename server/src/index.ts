@@ -38,8 +38,8 @@ app.get('/auth', (req: Request, res: Response) => {
   res.json({ token })
 })
 
-app.get('/verify', (req: Request, res: Response) => {
-  const token = req.query.token as string
+app.post('/verify-token', (req: Request, res: Response) => {
+  const token = req.body.token as string
   try {
     const decoded = jwt.verify(token!, process.env.JWT_SECRET!)
     res.json({ decoded })

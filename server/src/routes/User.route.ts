@@ -12,7 +12,7 @@ userRouter.post('/register', async (req: Request, res: Response) => {
       password: CryptoJS.SHA256(req.body.password).toString()
     })
     await user.save()
-    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET!, { expiresIn: '24h' })
+    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET!, { expiresIn: '1m' })
     res.status(201).send({ token })
   } catch (error) {
     res.status(400).send(error)
@@ -29,7 +29,7 @@ userRouter.post('/login', async (req: Request, res: Response) => {
     if (user.password !== password) {
       return res.status(401).send({ error: 'Email or password is incorrect' })
     }
-    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET!, { expiresIn: '24h' })
+    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET!, { expiresIn: '1m' })
     res.send({ token })
   } catch (error) {
     res.status(400).send(error)

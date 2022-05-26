@@ -1,0 +1,112 @@
+.auth-wrapper {
+  display: grid;
+  place-content: center;
+  height: 90vh;
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    .auth-header {
+      margin: 1rem;
+    }
+    .auth-body {
+      .input-wrapper {
+        margin: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        label {
+          margin: 0.5rem;
+        }
+        input {
+          width: 100%;
+          height: 2rem;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          padding: 0.5rem;
+          font-size: 1rem;
+          &:focus {
+            outline: none;
+            border-color: #000;
+          }
+        }
+      }
+      .submit-wrapper {
+        margin: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        button {
+          width: 100%;
+          height: 2rem;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          padding: 0.5rem;
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:focus {
+            outline: none;
+            border-color: #000;
+          }
+        }
+      }
+      .google-container {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        button {
+          width: 100%;
+          height: 2rem;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          padding: 0.5rem;
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:focus {
+            outline: none;
+            border-color: #000;
+          }
+        }
+      }
+    }
+  }
+}
+
+.switch-container {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  button {
+    width: 100%;
+    height: 2rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:focus {
+      outline: none;
+      border-color: #000;
+    }
+  }
+}

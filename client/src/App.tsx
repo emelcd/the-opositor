@@ -1,21 +1,67 @@
 import logo from "./logo.svg";
-import "./App.css";
+import "./App.scss";
 import AuthForm from "./components/AuthForm/AuthForm";
 import { useEffect, useState } from "react";
 
 function App() {
   const [token, setToken] = useState("");
+
+  const verifyToken = (token: string) => {
+    fetch(`http://localhost:4000/verify-token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token }),
+    })
+      .then((res) => {
+        if (res.status !== 200) {
+          setToken("");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   const tokenInLocalStorage = () => {
     const localStorageToken = localStorage.getItem("token");
     if (localStorageToken) {
       setToken(localStorageToken);
+      verifyToken(localStorageToken);
     }
   };
   useEffect(tokenInLocalStorage, []);
 
+  const insertNewSet = (token: string) => {
+    fetch("http://localhost:4000/set/insert", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: "test set",
+        description: "test description",
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+
   return (
     <div className="App">
-      {token ? <></> : <AuthForm setToken={setToken} />}
+      {token ? (
+        <>
+          <h1>AUTHORIZHED</h1>
+          <button onClick={() => insertNewSet(token)}>insert new set</button>
+        </>
+      ) : (
+        <AuthForm setToken={setToken} />
+      )}
     </div>
   );
 }

@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-filename-extension */
+import React, { useEffect, useMemo, useState } from "react";
 import "./AuthForm.scss";
 
 interface AuthProps {
@@ -6,16 +8,16 @@ interface AuthProps {
   password: string;
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
-  onSubmit: () => void;
+  handleSubmit: () => void;
 }
 
-const LoginForm = ({
+function LoginForm({
   email,
   password,
   setEmail,
   setPassword,
-  onSubmit,
-}: AuthProps) => {
+  handleSubmit: onSubmit,
+}: AuthProps) {
   return (
     <>
       <div className="input-wrapper">
@@ -37,19 +39,21 @@ const LoginForm = ({
         />
       </div>
       <div className="submit-wrapper">
-        <button onClick={onSubmit}>Submit</button>
+        <button type="button" onClick={onSubmit}>
+          Submit
+        </button>
       </div>
     </>
   );
-};
+}
 
-const SignupForm = ({
+function SignupForm({
   email,
   password,
   setEmail,
   setPassword,
-  onSubmit,
-}: AuthProps) => {
+  handleSubmit: onSubmit,
+}: AuthProps) {
   return (
     <>
       <div className="input-wrapper">
@@ -71,21 +75,25 @@ const SignupForm = ({
         />
       </div>
       <div className="submit-wrapper">
-        <button onClick={onSubmit}>Submit</button>
+        <button type="button" onClick={onSubmit}>
+          Submit
+        </button>
       </div>
     </>
   );
-};
+}
 
 interface AuthFormProps {
   setToken: (token: string) => void;
 }
-const AuthForm = ({ setToken }: AuthFormProps) => {
+function AuthForm({ setToken }: AuthFormProps) {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function onSubmit() {
+  const memoizedSumit = useMemo(handleSubmit, [isLogin])
+
+  function handleSubmit() {
     const base_url = "http://localhost:4000/user";
     const url = isLogin ? "/login" : "/register";
     const total_url = base_url + url;
@@ -111,7 +119,7 @@ const AuthForm = ({ setToken }: AuthFormProps) => {
         // document.cookie = `token=${token}`;
       })
       .catch((error) => {
-        alert(error);
+        console.error(error);
       });
   }
 
@@ -129,6 +137,7 @@ const AuthForm = ({ setToken }: AuthFormProps) => {
       <div className="auth-wrapper">
         <div className="switch-container">
           <button
+            type="button"
             className="auth-form__switch-button"
             onClick={() => setIsLogin(!isLogin)}
           >
@@ -147,7 +156,7 @@ const AuthForm = ({ setToken }: AuthFormProps) => {
                 password={password}
                 setEmail={setEmail}
                 setPassword={setPassword}
-                onSubmit={onSubmit}
+                handleSubmit={handleSubmit}
               />
             ) : (
               <SignupForm
@@ -155,7 +164,7 @@ const AuthForm = ({ setToken }: AuthFormProps) => {
                 password={password}
                 setEmail={setEmail}
                 setPassword={setPassword}
-                onSubmit={onSubmit}
+                handleSubmit={handleSubmit}
               />
             )}
             <hr
@@ -173,7 +182,7 @@ const AuthForm = ({ setToken }: AuthFormProps) => {
                 data-context="signin"
                 data-ux_mode="popup"
                 data-login_uri="http://localhost:4000/verify-google"
-              ></div>
+              />
 
               <div
                 className="g_id_signin"
@@ -183,13 +192,13 @@ const AuthForm = ({ setToken }: AuthFormProps) => {
                 data-text="signin_with"
                 data-size="large"
                 data-logo_alignment="left"
-              ></div>
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default AuthForm;

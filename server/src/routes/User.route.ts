@@ -7,6 +7,8 @@ const userRouter = Router()
 
 userRouter.post('/register', async (req: Request, res: Response) => {
   try {
+    const existUser = await User.findOne({ email: req.body.email })
+    if (existUser) throw new Error('User already exists')
     const user = new User({
       ...req.body,
       password: CryptoJS.SHA256(req.body.password).toString()
